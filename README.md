@@ -1,21 +1,23 @@
 # 경로 설계
 
-/ =>Home(TTI)
-/join => Join
-/login => Login
-/serch => Serch
+index.js
+/ => 홈페이지(로그인 전)
+/main => 메인페이지(로그인 후)
 
-/users =>User main
-/users/edit =>Edit user
-/users/delete =>Delete user
+signup.js
+/signup => 회원가입
 
-/datas/create =>Create data
-/datas/view =>View data
-/datas/edit =>Edit data
-/datas/delete =>Delete data
+login.js
+/login => 로그인
 
-/gallery =>View gallery
-/gallery/download =>Download gallery
-/gallery/comments =>Comment on a gallery
-/gallery/comments/delete => Delete a Comment of a gallery
-/gallery/mark =>good Mark
+my.js
+/my => 나의페이지
+/my/edit/profil =>프로필 수정
+/my/edit/img =>이미지 수정(이미지 수정 기능)
+
+create.js
+/create => 이미지 생성 페이지(이미지 저장 기능)
+
+gallery.js
+/gallery => 이미지 공유 페이지
+/gallery/view => 이미지 상세 페이지(다운로드 기능)
