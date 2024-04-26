@@ -1,10 +1,10 @@
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'user',
+    'user_data',
     {
       user_id: {
         type: DataTypes.INTEGER,
-        autoIncrememt: true,
+        autoIncrement: true,
         primaryKey: true,
         allowNull: false,
         comment: '사용자 고유번호',
@@ -17,7 +17,7 @@ module.exports = function (sequelize, DataTypes) {
       user_password: {
         type: DataTypes.STRING(300),
         allowNull: false,
-        comment: '사용자 비밀번호',
+        comment: '사용자 비밀번호, 난독화된 해시알고리즘',
       },
       user_name: {
         type: DataTypes.STRING(100),
@@ -47,7 +47,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     {
       sequelize,
-      tableName: 'user',
+      tableName: 'user_data',
       timestamps: false,
       comment: '사용자정보',
       indexes: [

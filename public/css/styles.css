@@ -8020,6 +8020,12 @@ fieldset:disabled .btn {
 .mb-5 {
   margin-bottom: 3rem !important;
 }
+.mb-501 {
+  margin-bottom: 4rem !important;
+}
+.mb-502 {
+  margin-bottom: 5.5rem !important;
+}
 
 .mb-6 {
   margin-bottom: 6rem !important;
@@ -10036,6 +10042,10 @@ fieldset:disabled .btn {
   .px-lg-5 {
     padding-right: 3rem !important;
     padding-left: 3rem !important;
+  }
+  .px-lg-10 {
+    padding-right: 15rem !important;
+    padding-left: 15rem !important;
   }
   .py-lg-0 {
     padding-top: 0 !important;

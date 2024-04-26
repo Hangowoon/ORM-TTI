@@ -4,6 +4,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+//express기반 서버세션 관리 팩키지 참조하기
+var session = require('express-session');
+
 //dotenv 어플리케이션 환경설정관리 팩키지 참조 및 구성하기
 require('dotenv').config();
 
@@ -27,13 +30,26 @@ var app = express();
 //// mysql과 자동연결처리 및 모델기반 물리 테이블 생성처리제공
 sequelize.sync();
 
+//session
+app.use(
+  session({
+    resave: false,
+    saveUninitialized: true,
+    secret: 'testsecret',
+    cookie: {
+      httpOnly: true,
+      secure: false,
+      maxAge: 1000 * 60 * 5, //5분동안 서버세션을 유지하겠다.(1000은 1초)
+    },
+  })
+);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 //레이아웃 설정
 app.set('layout', 'layout/layout.ejs'); // 해당 노드앱의 모든 콘텐츠 뷰파일의 기본 레이아웃 ejs파일
-app.set('layout extractTitle', true); // 콘텐츠페이지내 script태그를 레이아웃에 통합할지여부 설정하기
 app.set('layout extractScripts', true); // 콘텐츠페이지내 script태그를 레이아웃에 통합할지여부
 app.set('layout extractStyles', true); // 콘텐츠페이지내 style태그를 레이아웃에 통합할지여부
 app.set('layout extractMetas', true); // 콘텐츠페이지내 meta태그를 레이아웃에 통합할지여부

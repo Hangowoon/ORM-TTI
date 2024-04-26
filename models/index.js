@@ -25,7 +25,7 @@ db.sequelize = sequelize; //DB연결정보를 포함한 DB제어 객체속성(CR
 db.Sequelize = Sequelize; //Sequelize팩키지에서 제공하는 각종 데이터 타입 및 관련 객체정보를 제공함
 
 //모듈파일 참조하고 db속성정의하기
-db.User = require('./user.js')(sequelize, Sequelize);
+db.User_data = require('./user_data.js')(sequelize, Sequelize);
 db.Generated_data = require('./generated_data.js')(sequelize, Sequelize);
 
 //db객체 외부로 노출하기

@@ -9,6 +9,11 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         comment: '생성데이터 고유번호',
       },
+      reg_user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        comment: '생성자 고유번호(사용자 고유번호)',
+      },
       data_prompt: {
         type: DataTypes.TEXT,
         allowNull: false,

@@ -5,7 +5,7 @@ var router = express.Router();
 - 호출주소체계 : http://localhost:3000/my
 */
 router.get('/', async (req, res, next) => {
-  res.render('tti/my.ejs', { title: 'Express' });
+  res.render('tti/my.ejs', { title: 'My Page' });
 });
 
 module.exports = router;

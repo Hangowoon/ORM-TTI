@@ -4,8 +4,19 @@ var router = express.Router();
 /* gallery page.
 - 호출주소체계 : http://localhost:3000/gallery
 */
+
+// 갤러리 웹페이지
 router.get('/', async (req, res, next) => {
-  res.render('tti/gallery.ejs', { title: 'Express' });
+  res.render('tti/gallery.ejs', { title: 'Gallery' });
 });
+
+// 기존 갤러리 데이터 불러오기
+router.post('/', async (req, res, next) => {
+  res.redirect('');
+});
+
+// 기존 갤러리  다운로드 기능
+
+// 기존 갤러리 좋아요 기능
 
 module.exports = router;
