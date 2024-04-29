@@ -1,4 +1,4 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 
 /* gallery page.
@@ -6,13 +6,19 @@ var router = express.Router();
 */
 
 // 갤러리 웹페이지
-router.get('/', async (req, res, next) => {
-  res.render('tti/gallery.ejs', { title: 'Gallery' });
+router.get("/", async (req, res, next) => {
+	try {
+		var loginUserImage = await db.generated_data.findAll({
+			where: {reg_user_id: req.session.isLognUser.user_id},
+		});
+	} catch (err) {}
+
+	res.render("tti/gallery.ejs", {title: "Gallery"});
 });
 
 // 기존 갤러리 데이터 불러오기
-router.post('/', async (req, res, next) => {
-  res.redirect('');
+router.post("/", async (req, res, next) => {
+	res.redirect("");
 });
 
 // 기존 갤러리  다운로드 기능
