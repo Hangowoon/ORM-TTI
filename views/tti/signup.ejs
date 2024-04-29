@@ -177,8 +177,8 @@
   </div>
 </div>
 
-<!-- 유효성검사 -->
 <script>
+  // <!-- 유효성검사 -->
   $('#signupForm').submit(function () {
     if ($('#floatingEmail').val() == '') {
       alert('메일주소는 필수 입력 사항입니다.');
@@ -198,6 +198,17 @@
       return false;
     }
   });
+
+  //이메일 중복 에러 메시지 전달
+  var signupResult = '<%=signupResult%>';
+
+  if (signupResult.length > 0) {
+    alert(signupResult);
+
+    if (signupResult == '동일한 이메일이 존재합니다.') {
+      $('#floatingEmail').focus();
+    }
+  }
 </script>
 
-<title><%=title %></title>
+<title>회원가입</title>

@@ -12,7 +12,7 @@ const bcrypt = require('bcryptjs');
 */
 //회원가입 화면 페이지 호출
 router.get('/', async (req, res, next) => {
-  res.render('tti/signup.ejs', { title: '회원가입' });
+  res.render('tti/signup.ejs', { signupResult: '' });
 });
 
 //회원가입 등록 처리
@@ -24,42 +24,26 @@ router.post('/', async (req, res, next) => {
     resule: '', // 프론트엔드에게 처리 결과 추가 메시지를 전달하고 싶을 때 Ok, Failed
   };
 
-  // 정보 추출
+  var signupResult = '';
+
+  // 1. 데이터 추출
   var userEmail = req.body.userEmail;
   var userPassword = req.body.userPassword;
   var userName = req.body.userName;
 
-  // //이메일 중복 검사
-  // var newUser = await db.User_data.findOne({
-  //   where: { user_email: userEmail },
-  // });
+  // 2. 이메일 중복 체크
+  // 1)동일한 메일이 존재하는지 체크
+  var newUser = await db.User_data.findOne({
+    where: { user_email: userEmail },
+  });
 
-  // var resultMsg = '';
+  // 1-1) 동일한 계정이 존재하는 경우 ; 동알한 계정이 존재한다고 알려줌
+  if (newUser != null) {
+    signupResult = '동일한 이메일이 존재합니다.';
 
-  // if (userEmail == newUser) {
-  //   var resultMsg = '사용하고 있는 이메일입니다.';
-  //   res.render('tti/signup.ejs', { layout: false, resultMsg });
-  //   return false;
-  // } else {
-  //   //패스워드 단방향 암호화
-  //   const encryptedPassword = await bcrypt.hash(userPassword, 12);
-
-  //   // 데이터 바인딩
-  //   var user = {
-  //     user_email: userEmail,
-  //     user_password: encryptedPassword,
-  //     user_name: userName,
-  //     user_profile_img_path: '/assets/img/user/profile.jpg',
-  //     reg_date: Date.now(),
-  //     edit_date: Date.now(),
-  //     delete_date: Date.now(),
-  //   };
-
-  //   // DB저장(SQL/ORM)
-  //   var registedUserData = await db.User_data.create(user);
-  // }
-
-  try {
+    // 회원가입 ejs파일에 결과 데이터 전달
+    res.render('tti/signup.ejs', { signupResult });
+  } else {
     //패스워드 단방향 암호화
     const encryptedPassword = await bcrypt.hash(userPassword, 12);
 
@@ -77,17 +61,44 @@ router.post('/', async (req, res, next) => {
     // DB저장(SQL/ORM)
     var registedUserData = await db.User_data.create(user);
 
-    apiResult.code = '200';
-    apiResult.data = registedUserData;
-    apiResult.result = 'Ok';
-  } catch (Err) {
-    apiResult.code = '500';
-    apiResult.data = {};
-    apiResult.result = 'Failed, Server Error';
-  }
+    signupResult = ' 회원가입이 완료되었습니다.';
 
-  // 로그인 페이지로 이동
-  res.redirect('/login');
+    // 로그인 페이지로 이동
+    res.redirect('/login');
+
+    // 1-2) 동일한 계정이 존재하지 않는 경우 : 새로운 계정 생성
+    // try {
+    //   //패스워드 단방향 암호화
+    //   const encryptedPassword = await bcrypt.hash(userPassword, 12);
+
+    //   // 데이터 바인딩
+    //   var user = {
+    //     user_email: userEmail,
+    //     user_password: encryptedPassword,
+    //     user_name: userName,
+    //     user_profile_img_path: '/assets/img/user/profile.jpg',
+    //     reg_date: Date.now(),
+    //     edit_date: Date.now(),
+    //     delete_date: Date.now(),
+    //   };
+
+    //   // DB저장(SQL/ORM)
+    //   var registedUserData = await db.User_data.create(user);
+
+    //   apiResult.code = '200';
+    //   apiResult.data = registedUserData;
+    //   apiResult.result = 'Ok';
+
+    //   signupResult = ' 회원가입이 완료되었습니다.';
+
+    //   // 로그인 페이지로 이동
+    //   res.redirect('/login');
+    // } catch (Err) {
+    //   apiResult.code = '500';
+    //   apiResult.data = {};
+    //   apiResult.result = 'Failed, Server Error';
+    // }
+  }
 });
 
 module.exports = router;

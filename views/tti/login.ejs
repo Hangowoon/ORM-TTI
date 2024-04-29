@@ -115,9 +115,9 @@
     }
   });
 
+  //로그인 에러 메시지 전달
   var loginResult = '<%=loginResult%>';
 
-  //로그인 에러 메시지 전달
   if (loginResult.length > 0) {
     alert(loginResult);
 
@@ -125,6 +125,7 @@
       $('#floatingEmail').focus();
     } else {
       $('#floatingPassword').focus();
+      return false;
     }
   }
 </script>
