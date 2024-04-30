@@ -1,133 +1,97 @@
 <!-- Top -->
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
-  <div class="container px-4 px-lg-5">
-    <a class="navbar-brand" href="/">TTI</a>
+	<div class="container px-4 px-lg-5">
+		<a class="navbar-brand" href="/">TTI</a>
 
-    <button
-      class="navbar-toggler navbar-toggler-right"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarResponsive"
-      aria-controls="navbarResponsive"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+		<button
+			class="navbar-toggler navbar-toggler-right"
+			type="button"
+			data-bs-toggle="collapse"
+			data-bs-target="#navbarResponsive"
+			aria-controls="navbarResponsive"
+			aria-expanded="false"
+			aria-label="Toggle navigation"
+		>
+			<span class="navbar-toggler-icon"></span>
+		</button>
 
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ms-auto my-2 my-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="/login">로그인</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/signup">회원가입</a>
-        </li>
-      </ul>
-    </div>
-  </div>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav ms-auto my-2 my-lg-0">
+				<li class="nav-item">
+					<a class="nav-link" href="/login">로그인</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/signup">회원가입</a>
+				</li>
+			</ul>
+		</div>
+	</div>
 </nav>
 
 <!-- center -->
 <!-- Masthead-->
 <header class="masthead">
-  <!-- modal 로그인 -->
-  <div class="container px-5" tabindex="-1" role="dialog" id="modalSignin">
-    <div
-      class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center"
-      role="document"
-    >
-      <div class="col-lg-5 align-self-end mt-6">
-        <!-- 로그인 -->
-        <div class="modal-header p-5 pb-4 border-bottom-0">
-          <!-- <h5 class="modal-title">Modal title</h5> -->
-          <h5 class="text-white">로그인하기</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
+	<!-- modal 로그인 -->
+	<div class="container px-5" tabindex="-1" role="dialog" id="modalSignin">
+		<div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center" role="document">
+			<div class="col-lg-5 align-self-end mt-6">
+				<!-- 로그인 -->
+				<div class="modal-header p-5 pb-4 border-bottom-0">
+					<!-- <h5 class="modal-title">Modal title</h5> -->
+					<h5 class="text-white">로그인하기</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
 
-        <div class="modal-body p-5 pt-0 mb-501">
-          <form class="" method="post" action="/login" id="loginForm">
-            <!-- 이메일 -->
-            <div class="form-floating mb-3">
-              <input
-                type="email"
-                class="form-control rounded-3"
-                id="floatingEmail"
-                name="userEmail"
-                placeholder="name@example.com"
-              />
-              <label for="floatingEmail">이메일주소</label>
-            </div>
+				<div class="modal-body p-5 pt-0 mb-501">
+					<form class="" method="post" action="/login" id="loginForm">
+						<!-- 이메일 -->
+						<div class="form-floating mb-3">
+							<input type="email" class="form-control rounded-3" id="floatingEmail" name="userEmail" placeholder="name@example.com" />
+							<label for="floatingEmail">이메일주소</label>
+						</div>
 
-            <!-- 패스워드 -->
-            <div class="form-floating mb-3">
-              <input
-                type="password"
-                class="form-control rounded-3"
-                id="floatingPassword"
-                name="userPassword"
-                placeholder="Password"
-              />
-              <label for="floatingPassword">비밀번호</label>
-            </div>
+						<!-- 패스워드 -->
+						<div class="form-floating mb-3">
+							<input type="password" class="form-control rounded-3" id="floatingPassword" name="userPassword" placeholder="Password" />
+							<label for="floatingPassword">비밀번호</label>
+						</div>
 
-            <!-- 버튼 -->
-            <button
-              class="w-100 mb-2 btn btn-ls rounded-3 btn-primary"
-              type="submit"
-            >
-              로그인
-            </button>
+						<!-- 버튼 -->
+						<button class="w-100 mb-2 btn btn-ls rounded-3 btn-primary" type="submit">로그인</button>
 
-            <small class="text-muted"
-              >계정이 없나요?
-              <a class="text-primary" href="/signup"
-                >지금 계정을 만들어 보세요.</a
-              ></small
-            >
-            <hr class="my-0" />
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+						<small class="text-muted">계정이 없나요? <a class="text-primary" href="/signup">지금 계정을 만들어 보세요.</a></small>
+						<hr class="my-0" />
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </header>
 
 <script>
-  // <!-- 유효성검사 -->
-  $('#loginForm').submit(function () {
-    if ($('#floatingEmail').val() == '') {
-      alert('메일주소는 필수 입력 사항입니다.');
-      $('#floatingEmail').focus();
-      return false;
-    }
+	// <!-- 유효성검사 -->
+	$("#loginForm").submit(function () {
+		if ($("#floatingEmail").val() == "") {
+			alert("메일주소는 필수 입력 사항입니다.");
+			$("#floatingEmail").focus();
+			return false;
+		}
 
-    if ($('#floatingPassword').val() == '') {
-      alert('비밀번호는 필수 입력 사항입니다.');
-      $('#floatingPassword').focus();
-      return false;
-    }
-  });
+		if ($("#floatingPassword").val() == "") {
+			alert("비밀번호는 필수 입력 사항입니다.");
+			$("#floatingPassword").focus();
+			return false;
+		}
+	});
 
-  //로그인 에러 메시지 전달
-  var loginResult = '<%=loginResult%>';
+	//로그인 에러 메시지 전달
+	var loginResult = "<%=loginResult%>";
 
-  if (loginResult.length > 0) {
-    alert(loginResult);
-
-    if (loginResult == '이메일이 존재하지 않습니다.') {
-      $('#floatingEmail').focus();
-    } else {
-      $('#floatingPassword').focus();
-      return false;
-    }
-  }
+	if (loginResult.length > 0) {
+		alert(loginResult);
+		$("#floatingEmail").focus();
+	}
 </script>
 
 <title>로그인</title>

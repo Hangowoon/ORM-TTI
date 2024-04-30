@@ -1,6 +1,8 @@
 var express = require("express");
 var router = express.Router();
 var db = require("../models/index.js");
+//사용자 로그인 인증 미들웨어 참조
+const {isAuthenticated} = require("./middleware/authMiddleware.js");
 
 //이미지 업로드를 위한 multer 객체 참조
 const multer = require("multer");
@@ -25,7 +27,7 @@ const upload = multer({storage: storage});
 /* my page.
 - 호출주소체계 : http://localhost:3000/my
 */
-router.get("/", async (req, res, next) => {
+router.get("/", isAuthenticated, async (req, res, next) => {
 	//나의 페이지 정보 출력을 위한 로그인 유저 user_id로 조건 조회
 	try {
 		var loginUser = await db.User_data.findOne({
@@ -45,7 +47,7 @@ router.get("/", async (req, res, next) => {
 
 //http://localhost:3000/my/update-profile
 
-router.post("/update-profile", upload.single("profileImage"), async (req, res, next) => {
+router.post("/update-profile", isAuthenticated, upload.single("profileImage"), async (req, res, next) => {
 	const userName = req.body.name;
 	let profileImagePath = req.file ? req.file.path : req.session.isLognUser.user_profile_img_path;
 

@@ -35,11 +35,12 @@ app.use(
 	session({
 		resave: false,
 		saveUninitialized: true,
-		secret: "testsecret",
+		secret: process.env.CookieSecret,
+		name: "connect.sid",
 		cookie: {
 			httpOnly: true,
 			secure: false,
-			maxAge: 1000 * 60 * 20, //5분동안 서버세션을 유지하겠다.(1000은 1초)
+			maxAge: 1000 * 60 * 60, //60분동안 서버세션을 유지하겠다.(1000은 1초)
 		},
 	})
 );
@@ -69,6 +70,11 @@ app.use("/login", loginRouter);
 app.use("/my", myRouter);
 app.use("/create", createRouter);
 app.use("/gallery", galleryRouter);
+
+// 캐치올 라우터: 정의되지 않은 모든 경로를 홈으로 리다이렉션
+app.get("*", (req, res) => {
+	res.redirect("/");
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
