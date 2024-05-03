@@ -14,10 +14,6 @@ const db = require("../models/index.js");
 //OpenAI 참조하기
 const {OpenAI} = require("openai");
 
-const openai = new OpenAI({
-	apiKey: process.env.OPENAI_API_KEY,
-});
-
 /* create page. get
 - 호출주소체계 : http://localhost:3000/create
 */
@@ -33,6 +29,9 @@ router.get("/", isAuthenticated, async (req, res, next) => {
 router.post("/", isAuthenticated, async (req, res, next) => {
 	let imageURL = "";
 	let imageBinaryData = "";
+	const openai = new OpenAI({
+		apiKey: process.env.OPENAI_API_KEY,
+	});
 	try {
 		var model = req.body.modelVersion;
 		var prompt = req.body.floatingPrompt;
@@ -97,9 +96,9 @@ router.post("/", isAuthenticated, async (req, res, next) => {
 
 		function getKoreanTimeIsoString() {
 			const now = new Date(); // 현재 UTC 시간
-			const koreaTimeOffset = 9 * 60 * 60 * 1000; // 9시간을 밀리초로 변환
-			const koreanTime = new Date(now.getTime() + koreaTimeOffset); // 한국 시간
-			return koreanTime.toISOString();
+			// const koreaTimeOffset = 9 * 60 * 60 * 1000; // 9시간을 밀리초로 변환
+			// const koreanTime = new Date(now.getTime() + koreaTimeOffset); // 한국 시간
+			return now.toISOString();
 		}
 
 		await db.Generated_data.create({

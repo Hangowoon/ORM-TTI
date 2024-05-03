@@ -61,6 +61,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+//node_modules에있는 패키지 직접 참조를 위한 설정 부트스트랩 직접 참조가능
+app.use("/scripts", express.static(__dirname + "/node_modules"));
 
 // 라우터 경로
 app.use("/", indexRouter);

@@ -44,6 +44,11 @@ module.exports = function (sequelize, DataTypes) {
 				allowNull: false,
 				comment: "생성데이터 공개여부 : 0 비공개, 1 공개",
 			},
+			data_like: {
+				type: DataTypes.INTEGER,
+				allowNull: true,
+				comment: "생성데이터 좋아요 수",
+			},
 			reg_date: {
 				type: DataTypes.DATE,
 				allowNull: false,

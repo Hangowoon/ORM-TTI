@@ -34,51 +34,160 @@ router.get("/", isAuthenticated, async (req, res, next) => {
 			where: {user_id: req.session.isLognUser.user_id},
 			attribute: ["user_id", "user_email", "user_name", "user_profile_img_path"],
 		});
-		// var loginUserImage = await db.generated_data.findAll({
-		// 	where: {reg_user_id: req.session.isLognUser.user_id},
-		// });
+		var loginUserImage = await db.Generated_data.findAll({
+			where: {reg_user_id: req.session.isLognUser.user_id},
+		});
+		// 보내줄 이미지데이터 경로 변경 처리  ./public/generatedImages/sample-1714463990962.png  ==> /generatedImages/sample-1714463990962.png
+		loginUserImage.forEach((item, index) => {
+			item.dataValues.data_save_path = item.dataValues.data_save_path.replace("./public", "");
+		});
 	} catch (err) {
 		console.error(err);
 		next(err);
 	}
 	//db에서 조회해온 정보로 loginUser정보 view에 전달
-	res.render("tti/my.ejs", {title: "My Page", loginUser});
+	res.render("tti/my.ejs", {title: "My Page", loginUser, loginUserImage});
 });
 
 //http://localhost:3000/my/update-profile
 
 router.post("/update-profile", isAuthenticated, upload.single("profileImage"), async (req, res, next) => {
 	const userName = req.body.name;
-	let profileImagePath = req.file ? req.file.path : req.session.isLognUser.user_profile_img_path;
-
-	const imagePath = path.join(__dirname, "../", profileImagePath);
 
 	try {
-		//이미지 사이즈 조정
-		const processedImage = await sharp(imagePath).resize(120, 120).jpeg({quality: 100}).toBuffer();
-		//이미지 비동기로 파일에 쓰기
-		await fs.promises.writeFile(imagePath, processedImage);
+		if (req.file) {
+			let profileImagePath = req.file.path;
+			const imagePath = path.join(__dirname, "../", profileImagePath);
+			//이미지 사이즈 조정
+			const processedImage = await sharp(imagePath).resize(120, 120).jpeg({quality: 100}).toBuffer();
+			//이미지 비동기로 파일에 쓰기
+			await fs.promises.writeFile(imagePath, processedImage);
 
-		//경로 패스정보 수정
-		// /public//uploads-userImages/1714361916977-_0520c564-aa8e-4822-8b82-a188d73ac9b0.jpeg  => /public 경로 제거
-		// profileImagePath = profileImagePath.replace("public", "");
-		profileImagePath = profileImagePath.replace("public", "");
+			//경로 패스정보 수정
+			// /public//uploads-userImages/1714361916977-_0520c564-aa8e-4822-8b82-a188d73ac9b0.jpeg  => /public 경로 제거
+			// profileImagePath = profileImagePath.replace("public", "");
+			profileImagePath = profileImagePath.replace("public", "");
 
-		//사용자 프로필 이름, 이미지 프로필 수정
-		await db.User_data.update(
-			{
-				user_name: userName, // 업데이트할 데이터
-				user_profile_img_path: profileImagePath, // 업데이트할 데이터
-			},
-			{
-				where: {user_id: req.session.isLognUser.user_id}, // where 조건
-			}
-		);
+			//사용자 프로필 이름, 이미지 프로필 수정
+			await db.User_data.update(
+				{
+					user_name: userName, // 업데이트할 데이터
+					user_profile_img_path: profileImagePath, // 업데이트할 데이터
+				},
+				{
+					where: {user_id: req.session.isLognUser.user_id}, // where 조건
+				}
+			);
+		} else {
+			//사용자 프로필 이름
+			await db.User_data.update(
+				{
+					user_name: userName, // 업데이트할 데이터
+				},
+				{
+					where: {user_id: req.session.isLognUser.user_id}, // where 조건
+				}
+			);
+		}
 	} catch (err) {
 		console.error(err);
 		next(err);
 	}
 	res.redirect("/my");
+});
+
+// Express 라우터 설정
+router.put("/update-image/:imageId", isAuthenticated, async (req, res, next) => {
+	const {data_ai_model_name, data_img_size, data_prompt} = req.body;
+	const {imageId} = req.params;
+
+	try {
+		await db.Generated_data.update({data_ai_model_name, data_img_size, data_prompt}, {where: {data_id: imageId, reg_user_id: req.session.isLognUser.user_id}});
+		res.status(200).json({message: "데이터가 수정되었습니다!"}); // JSON 응답 전송
+	} catch (error) {
+		console.error("Failed to update image:", error);
+		res.status(500).json({error: "Error updating image", details: error.message}); // 오류 정보를 포함한 JSON 응답 전송
+	}
+});
+
+// 이미지 삭제 처리 / 서버에서 실제 이미지 삭제 없이 처리하는 코드!
+// router.delete("/delete-image/:imageId", isAuthenticated, async (req, res) => {
+// 	const {imageId} = req.params;
+// 	try {
+// 		const result = await db.Generated_data.destroy({
+// 			where: {data_id: imageId, reg_user_id: req.session.isLognUser.user_id},
+// 		});
+// 		if (result > 0) {
+// 			res.status(200).send({message: "성공적으로 이미지가 삭제되었습니다."});
+// 		} else {
+// 			res.status(404).send({message: "삭제이미지를 찾을수가 없습니다."});
+// 		}
+// 	} catch (error) {
+// 		console.error("Failed to delete image:", error);
+// 		res.status(500).send({error: "이미지 삭제에 실패하였습니다.", details: error.message});
+// 	}
+// });
+
+// 이미지 삭제 처리 /서버에서 실제 이미지 삭제를 하고 데이터베이스에서 이미지 삭제
+
+router.delete("/delete-image/:imageId", isAuthenticated, async (req, res) => {
+	const {imageId} = req.params;
+	try {
+		// 먼저 이미지 정보를 데이터베이스에서 조회
+		const imageData = await db.Generated_data.findOne({
+			where: {data_id: imageId, reg_user_id: req.session.isLognUser.user_id},
+		});
+
+		if (imageData) {
+			// 파일 시스템에서 이미지 파일 삭제
+			let filePath = imageData.data_save_path.replace(".", "");
+
+			filePath = path.join(__dirname, "..", imageData.data_save_path);
+			fs.unlink(filePath, async (err) => {
+				if (err) {
+					console.error("파일삭제에 실패하였습니다!:", err);
+					return res.status(500).send({message: "파일 시스템에서 이미지 삭제에 실패하였습니다."});
+				}
+				// 파일 삭제 후 데이터베이스 레코드 삭제
+				const result = await db.Generated_data.destroy({
+					where: {data_id: imageId},
+				});
+				if (result > 0) {
+					res.status(200).send({message: "성공적으로 이미지가 삭제되었습니다."});
+				} else {
+					res.status(404).send({message: "삭제 이미지를 찾을 수가 없습니다."});
+				}
+			});
+		} else {
+			res.status(404).send({message: "삭제 이미지를 찾을 수가 없습니다."});
+		}
+	} catch (error) {
+		console.error("Failed to delete image:", error);
+		res.status(500).send({error: "이미지 삭제에 실패하였습니다.", details: error.message});
+	}
+});
+
+//이미지 공개여부 처리
+
+router.put("/update-closure/:imageId", isAuthenticated, async (req, res) => {
+	const {imageId} = req.params;
+	try {
+		const result = await db.Generated_data.update(
+			{data_disclosure: req.body.data_closure},
+			{
+				where: {data_id: imageId, reg_user_id: req.session.isLognUser.user_id},
+			}
+		);
+
+		if (result > 0) {
+			res.status(200).send({message: "성공적으로 이미지 공개 여부가 설정되었습니다."});
+		} else {
+			res.status(404).send({message: "공개여부를 설정할 이미지를 찾을 수가 없습니다."});
+		}
+	} catch (error) {
+		console.error("Failed to delete image:", error);
+		res.status(500).send({error: "이미지 공개 여부 설정에 실패하였습니다.", details: error.message});
+	}
 });
 
 module.exports = router;

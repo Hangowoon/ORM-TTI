@@ -1,4 +1,5 @@
 <!-- Top -->
+
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
 	<div class="container px-4 px-lg-5">
@@ -39,7 +40,7 @@
 <!-- Header - set the background image for the header in the line below-->
 <header class="masthead bg-primary text-white text-center">
 	<div class="container d-flex align-items-center flex-column">
-		<img class="img-fluid rounded-circle mb-3" src="<%= loginUser.user_profile_img_path %>"alt="..." />
+		<img class="img-fluid rounded-circle mb-3" src="<%= loginUser.user_profile_img_path %>" alt="..." />
 		<h1 class="fs-3 fw-bolder"><%= loginUser.user_name %></h1>
 		<p class="text-white-50 mb-3"><%= loginUser.user_email %></p>
 		<!-- 버튼 -->
@@ -50,80 +51,33 @@
 
 		<!-- 포트폴리오 -->
 		<div class="text-center" id="portfolio">
-			<!-- Portfolio Grid Items-->
-			<div class="row justify-content-center">
-				<!-- Portfolio Item 1-->
-				<div class="col-md-6 col-lg-205">
-					<div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
+			<!-- Portfolio Grid Items -->
+			<div class="row justify-content-start">
+				<!-- 첫 행 시작 -->
+				<% loginUserImage.forEach(function(image, index) { %>
+				<!-- Portfolio Item -->
+				<div class="col-md-6 col-lg-4">
+					<div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal<%= index %>">
 						<div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
 							<div class="portfolio-item-caption-content text-center text-white">
 								<i class="fas fa-plus fa-3x"></i>
 							</div>
 						</div>
-						<img class="img-fluid" src="assets/img/mypage/cabin.png" alt="..." />
-					</div>
-				</div>
-
-				<!-- Portfolio Item 2-->
-				<div class="col-md-6 col-lg-205">
-					<div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal2">
-						<div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-							<div class="portfolio-item-caption-content text-center text-white">
-								<i class="fas fa-plus fa-3x"></i>
-							</div>
+						<img class="img-fluid" src="<%= image.data_save_path %>" alt="<%= image.data_prompt %>" />
+						<div class="bg-dark text-white p-2 text-center">
+							<h6 class="h6 mb-0"><%= image.data_prompt %></h6>
 						</div>
-						<img class="img-fluid" src="assets/img/mypage/cake.png" alt="..." />
 					</div>
 				</div>
-
-				<!-- Portfolio Item 3-->
-				<div class="col-md-6 col-lg-205">
-					<div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal3">
-						<div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-							<div class="portfolio-item-caption-content text-center text-white">
-								<i class="fas fa-plus fa-3x"></i>
-							</div>
-						</div>
-						<img class="img-fluid" src="assets/img/mypage/circus.png" alt="..." />
-					</div>
-				</div>
-
-				<!-- Portfolio Item 4-->
-				<div class="col-md-6 col-lg-205">
-					<div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal4">
-						<div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-							<div class="portfolio-item-caption-content text-center text-white">
-								<i class="fas fa-plus fa-3x"></i>
-							</div>
-						</div>
-						<img class="img-fluid" src="assets/img/mypage/game.png" alt="..." />
-					</div>
-				</div>
-
-				<!-- Portfolio Item 5-->
-				<div class="col-md-6 col-lg-205">
-					<div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal5">
-						<div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-							<div class="portfolio-item-caption-content text-center text-white">
-								<i class="fas fa-plus fa-3x"></i>
-							</div>
-						</div>
-						<img class="img-fluid" src="assets/img/mypage/safe.png" alt="..." />
-					</div>
-				</div>
-
-				<!-- Portfolio Item 6-->
-				<div class="col-md-6 col-lg-205">
-					<div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal6">
-						<div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-							<div class="portfolio-item-caption-content text-center text-white">
-								<i class="fas fa-plus fa-3x"></i>
-							</div>
-						</div>
-						<img class="img-fluid" src="assets/img/mypage/circus.png" alt="..." />
-					</div>
-				</div>
-
+				<!-- 이코드는 3의 배수마다 4번쨰가 되면 새로운행을 시작해서 잔여 작품이 중앙에 배치되는것을 방지해주는 코드입니다. -->
+				<% if ((index + 1) % 3 === 0 && index + 1 !== loginUserImage.length) { %>
+			</div>
+			<div class="row justify-content-start">
+				<!-- 새 행 시작 -->
+				<% } %> <% }); %>
+			</div>
+			<!-- 마지막 행 끝 -->
+		</div>
 		<!-- 하단 이미지 목록 페이지  -->
 		<!-- <div class="text-white text-center mt-4 mb-4">1 2 3</div> -->
 	</div>
@@ -155,34 +109,33 @@
 								<div class="divider-custom-line"></div>
 							</div>
 
-                            <!-- 나의 페이지 수정 부분 -->
-                            <form action="/my/update-profile" method="POST" enctype="multipart/form-data" >
-                                <!-- 프로필 이미지 -->
-                                
-                                <!-- 이미지 업로드 필드 추가 -->
-                                <div class="form-floating mb-3">
-                                    <label for="profileImage" class="form-label">프로필 이미지</label>
-                                    <img class="img-fluid rounded mb-4" src="<%= loginUser.user_profile_img_path %>" alt="..." />
-                                    <input class="form-control" type="file" id="profileImage" name="profileImage" />
-                                </div>
+							<!-- 나의 페이지 수정 부분 -->
+							<form action="/my/update-profile" method="POST" enctype="multipart/form-data">
+								<!-- 프로필 이미지 -->
 
-                                
-                                <!-- 이메일주소 input-->
-                                <div class="form-floating mb-3">
-                                    <input class="form-control" id="email" name="email" type="email" placeholder="name@example.com" disabled value="<%= loginUser.user_email %>" />
-                                    <label for="email">이메일주소</label>
-                                </div>
-                                <!-- 이름 input-->
-                                <div class="form-floating mb-3">
-                                    <input class="form-control" id="name" name="name" type="text" placeholder="Enter your name..." value="<%= loginUser.user_name %>" />
-                                    <label for="name">이름</label>
-                                </div>
+								<!-- 이미지 업로드 필드 추가 -->
+								<div class="form-floating mb-3">
+									<label for="profileImage" class="form-label">프로필 이미지</label>
+									<img class="img-fluid rounded mb-4" src="<%= loginUser.user_profile_img_path %>" alt="..." />
+									<input class="form-control" type="file" id="profileImage" name="profileImage" />
+								</div>
 
-                                <button class="btn btn-dark" data-bs-dismiss="modal" type="submit">
-                                    <i class="fas fa-xmark fa-fw"></i>
-                                    저장
-                                </button>
-                            </form>
+								<!-- 이메일주소 input-->
+								<div class="form-floating mb-3">
+									<input class="form-control" id="email" name="email" type="email" placeholder="name@example.com" disabled value="<%= loginUser.user_email %>" />
+									<label for="email">이메일주소</label>
+								</div>
+								<!-- 이름 input-->
+								<div class="form-floating mb-3">
+									<input class="form-control" id="name" name="name" type="text" placeholder="Enter your name..." value="<%= loginUser.user_name %>" />
+									<label for="name">이름</label>
+								</div>
+
+								<button class="btn btn-dark" data-bs-dismiss="modal" type="submit">
+									<i class="fas fa-xmark fa-fw"></i>
+									저장
+								</button>
+							</form>
 						</div>
 						<!-- Portfolio Modal - Text-->
 					</div>
@@ -192,8 +145,8 @@
 	</div>
 </div>
 
-<!-- Portfolio Modal 1-->
-<div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" aria-labelledby="portfolioModal1" aria-hidden="true">
+<% loginUserImage.forEach(function(image, index) { %>
+<div class="portfolio-modal modal fade" id="portfolioModal<%= index %>" tabindex="-1" aria-labelledby="portfolioModal<%= index %>" aria-hidden="true">
 	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
 			<div class="modal-header border-0">
@@ -203,46 +156,30 @@
 				<div class="container">
 					<div class="row justify-content-center">
 						<div class="col-lg-8">
-							<!-- Portfolio Modal - Title-->
-							<h2 class="portfolio-modal-title text-secondary text-uppercase mb-3">Image Title</h2>
-							<!-- Icon Divider-->
+							<h2 class="portfolio-modal-title text-secondary text-uppercase mb-3"><%= image.data_prompt %></h2>
 							<div class="divider-custom">
 								<div class="divider-custom-line"></div>
-								<div class="divider-custom-icon">
-									<i class="fas fa-star"></i>
-								</div>
+								<div class="divider-custom-icon"><i class="fas fa-star"></i></div>
 								<div class="divider-custom-line"></div>
 							</div>
-							<!-- Portfolio Modal - Image-->
-							<img class="img-fluid rounded mb-5" src="assets/img/mypage/cabin.png" alt="..." />
-							<!-- Portfolio Modal - Text-->
+							<img class="img-fluid rounded mb-5" src="<%= image.data_save_path %>" alt="..." />
 							<div class="form-floating mb-3">
-								<input class="form-select" id="aiMidel" type="text" />
-								<label for="name">AI Model</label>
+								<input class="form-select" id="aiModel<%= index %>" type="text" value="<%= image.data_ai_model_name %>" />
+								<label for="aiModel<%= index %>">AI Model Name</label>
 							</div>
-							<!-- Email address input-->
 							<div class="form-floating mb-3">
-								<input class="form-select" id="imgSize" type="text" />
-								<label for="imgSize">Image Size</label>
+								<input class="form-select" id="imgSize<%= index %>" type="text" value="<%= image.data_img_size %>" />
+								<label for="imgSize<%= index %>">Image Size</label>
 							</div>
-							<!-- Phone number input-->
-							<div class="form-floating mb-3">
-								<textarea class="form-control" id="prompt" type="text" placeholder="Enter image prompt here..." style="height: 10rem" data-sb-validations="required"></textarea>
-								<label for="prompt">Prompt</label>
-							</div>
+							<textarea class="form-control" id="prompt<%= index %>" style="height: 10rem"><%= image.data_prompt %></textarea>
 
-							<button class="btn btn-dark" data-bs-dismiss="modal">
-								<i class="fas fa-xmark fa-fw"></i>
-								저장
-							</button>
-							<button class="btn btn-dark" data-bs-dismiss="modal">
-								<i class="fas fa-xmark fa-fw"></i>
-								삭제
-							</button>
-							<button class="btn btn-primary" data-bs-dismiss="modal">
-								<i class="fas fa-xmark fa-fw"></i>
-								공유
-							</button>
+							<button onclick="updateImage('<%= image.data_id %>', '<%= index %>')" class="btn btn-dark mt-4">수정</button>
+							<button onclick="deleteImage('<%= image.data_id %>')" class="btn btn-dark mt-4">삭제</button>
+							<% if (image.data_disclosure === 1) { %>
+							<button onclick="updateDisclosure('<%= image.data_id %>', false)" class="btn btn-warning mt-4">비공개</button>
+							<% } else { %>
+							<button onclick="updateDisclosure('<%= image.data_id %>', true)" class="btn btn-success mt-4">공개</button>
+							<% } %>
 						</div>
 					</div>
 				</div>
@@ -250,7 +187,7 @@
 		</div>
 	</div>
 </div>
-
+<% }); %>
 <!-- Portfolio Modal 2-->
 <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" aria-labelledby="portfolioModal2" aria-hidden="true">
 	<div class="modal-dialog modal-xl">
@@ -291,244 +228,88 @@
 	</div>
 </div>
 
-<!-- Portfolio Modal 3-->
-<div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" aria-labelledby="portfolioModal3" aria-hidden="true">
-	<div class="modal-dialog modal-xl">
-		<div class="modal-content">
-			<div class="modal-header border-0">
-				<button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body text-center pb-5">
-				<div class="container">
-					<div class="row justify-content-center">
-						<div class="col-lg-8">
-							<!-- Portfolio Modal - Title-->
-							<h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Circus Tent</h2>
-							<!-- Icon Divider-->
-							<div class="divider-custom">
-								<div class="divider-custom-line"></div>
-								<div class="divider-custom-icon">
-									<i class="fas fa-star"></i>
-								</div>
-								<div class="divider-custom-line"></div>
-							</div>
-							<!-- Portfolio Modal - Image-->
-							<img class="img-fluid rounded mb-5" src="assets/img/mypage/circus.png" alt="..." />
-							<!-- Portfolio Modal - Text-->
-							<p class="mb-4">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit
-								asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.
-							</p>
-							<button class="btn btn-primary" data-bs-dismiss="modal">
-								<i class="fas fa-xmark fa-fw"></i>
-								Close Window
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+<!-- 이미지 데이터 수정 모달 -->
 
-<!-- Portfolio Modal 4-->
-<div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" aria-labelledby="portfolioModal4" aria-hidden="true">
-	<div class="modal-dialog modal-xl">
+<!-- Bootstrap Response Modal -->
+<div class="modal fade" id="responseModal" tabindex="-1" aria-labelledby="responseModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
 		<div class="modal-content">
-			<div class="modal-header border-0">
-				<button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+			<div class="modal-header">
+				<h5 class="modal-title" id="responseModalLabel">Update Status</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
-			<div class="modal-body text-center pb-5">
-				<div class="container">
-					<div class="row justify-content-center">
-						<div class="col-lg-8">
-							<!-- Portfolio Modal - Title-->
-							<h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Controller</h2>
-							<!-- Icon Divider-->
-							<div class="divider-custom">
-								<div class="divider-custom-line"></div>
-								<div class="divider-custom-icon">
-									<i class="fas fa-star"></i>
-								</div>
-								<div class="divider-custom-line"></div>
-							</div>
-							<!-- Portfolio Modal - Image-->
-							<img class="img-fluid rounded mb-5" src="assets/img/mypage/game.png" alt="..." />
-							<!-- Portfolio Modal - Text-->
-							<p class="mb-4">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit
-								asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.
-							</p>
-							<button class="btn btn-primary" data-bs-dismiss="modal">
-								<i class="fas fa-xmark fa-fw"></i>
-								Close Window
-							</button>
-						</div>
-					</div>
-				</div>
+			<div class="modal-body" id="responseMessage">
+				<!-- Message will be inserted here -->
 			</div>
-		</div>
-	</div>
-</div>
-
-<!-- Portfolio Modal 5-->
-<div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" aria-labelledby="portfolioModal5" aria-hidden="true">
-	<div class="modal-dialog modal-xl">
-		<div class="modal-content">
-			<div class="modal-header border-0">
-				<button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body text-center pb-5">
-				<div class="container">
-					<div class="row justify-content-center">
-						<div class="col-lg-8">
-							<!-- Portfolio Modal - Title-->
-							<h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Locked Safe</h2>
-							<!-- Icon Divider-->
-							<div class="divider-custom">
-								<div class="divider-custom-line"></div>
-								<div class="divider-custom-icon">
-									<i class="fas fa-star"></i>
-								</div>
-								<div class="divider-custom-line"></div>
-							</div>
-							<!-- Portfolio Modal - Image-->
-							<img class="img-fluid rounded mb-5" src="assets/img/mypage/safe.png" alt="..." />
-							<!-- Portfolio Modal - Text-->
-							<p class="mb-4">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit
-								asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.
-							</p>
-							<button class="btn btn-primary" data-bs-dismiss="modal">
-								<i class="fas fa-xmark fa-fw"></i>
-								Close Window
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<!-- Portfolio Modal 6-->
-<div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" aria-labelledby="portfolioModal6" aria-hidden="true">
-	<div class="modal-dialog modal-xl">
-		<div class="modal-content">
-			<div class="modal-header border-0">
-				<button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body text-center pb-5">
-				<div class="container">
-					<div class="row justify-content-center">
-						<div class="col-lg-8">
-							<!-- Portfolio Modal - Title-->
-							<h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Submarine</h2>
-							<!-- Icon Divider-->
-							<div class="divider-custom">
-								<div class="divider-custom-line"></div>
-								<div class="divider-custom-icon">
-									<i class="fas fa-star"></i>
-								</div>
-								<div class="divider-custom-line"></div>
-							</div>
-							<!-- Portfolio Modal - Image-->
-							<img class="img-fluid rounded mb-5" src="assets/img/mypage/submarine.png" alt="..." />
-							<!-- Portfolio Modal - Text-->
-							<p class="mb-4">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit
-								asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.
-							</p>
-							<button class="btn btn-primary" data-bs-dismiss="modal">
-								<i class="fas fa-xmark fa-fw"></i>
-								Close Window
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<!-- Portfolio Modal 7-->
-<div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" aria-labelledby="portfolioModal1" aria-hidden="true">
-	<div class="modal-dialog modal-xl">
-		<div class="modal-content">
-			<div class="modal-header border-0">
-				<button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body text-center pb-5">
-				<div class="container">
-					<div class="row justify-content-center">
-						<div class="col-lg-8">
-							<!-- Portfolio Modal - Title-->
-							<h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Log Cabin</h2>
-							<!-- Icon Divider-->
-							<div class="divider-custom">
-								<div class="divider-custom-line"></div>
-								<div class="divider-custom-icon">
-									<i class="fas fa-star"></i>
-								</div>
-								<div class="divider-custom-line"></div>
-							</div>
-							<!-- Portfolio Modal - Image-->
-							<img class="img-fluid rounded mb-5" src="assets/img/mypage/cabin.png" alt="..." />
-							<!-- Portfolio Modal - Text-->
-							<p class="mb-4">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit
-								asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.
-							</p>
-							<button class="btn btn-primary" data-bs-dismiss="modal">
-								<i class="fas fa-xmark fa-fw"></i>
-								Close Window
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<!-- Portfolio Modal 8-->
-<div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" aria-labelledby="portfolioModal2" aria-hidden="true">
-	<div class="modal-dialog modal-xl">
-		<div class="modal-content">
-			<div class="modal-header border-0">
-				<button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body text-center pb-5">
-				<div class="container">
-					<div class="row justify-content-center">
-						<div class="col-lg-8">
-							<!-- Portfolio Modal - Title-->
-							<h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Tasty Cake</h2>
-							<!-- Icon Divider-->
-							<div class="divider-custom">
-								<div class="divider-custom-line"></div>
-								<div class="divider-custom-icon">
-									<i class="fas fa-star"></i>
-								</div>
-								<div class="divider-custom-line"></div>
-							</div>
-							<!-- Portfolio Modal - Image-->
-							<img class="img-fluid rounded mb-5" src="assets/img/mypage/cake.png" alt="..." />
-							<!-- Portfolio Modal - Text-->
-							<p class="mb-4">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit
-								asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.
-							</p>
-							<button class="btn btn-primary" data-bs-dismiss="modal">
-								<i class="fas fa-xmark fa-fw"></i>
-								Close Window
-							</button>
-						</div>
-					</div>
-				</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>
 </div>
 
 <title><%=title %></title>
+
+<script>
+	function updateImage(imageId, index) {
+		const aiModel = document.getElementById("aiModel" + index).value;
+		const imgSize = document.getElementById("imgSize" + index).value;
+		const prompt = document.getElementById("prompt" + index).value;
+
+		fetch("/my/update-image/" + imageId, {
+			method: "PUT",
+			headers: {"Content-Type": "application/json"},
+			body: JSON.stringify({data_ai_model_name: aiModel, data_img_size: imgSize, data_prompt: prompt}),
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				alert(data.message);
+				window.location.reload();
+			})
+			.catch((error) => {
+				console.error("Error:", error, details);
+				alert("데이터 변경에 실패하였습니다.");
+				window.location.reload();
+			});
+	}
+
+	function deleteImage(imageId) {
+		if (!confirm("정말로 이미지데이터를 삭제 하겠습니까?")) return;
+		fetch("/my/delete-image/" + imageId, {
+			method: "DELETE", // 메서드를 'DELETE'로 변경
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.message) {
+					alert(data.message);
+				}
+				window.location.reload();
+			})
+			.catch((error) => {
+				console.error("Error:", error);
+				alert("데이터 삭제에 실패하였습니다.");
+				window.location.reload();
+			});
+	}
+
+	function updateDisclosure(imageId, isPublic) {
+		const dataDisclosure = isPublic ? 1 : 0; //공개는 1, 비공개는 0
+		fetch(`/my/update-closure/${imageId}`, {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({data_closure: dataDisclosure}),
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				alert(data.message);
+				window.location.reload();
+			})
+			.catch((error) => {
+				console.error("Error:", error);
+				alert("이미지 공개 여부 설정에 실패하였습니다.");
+				window.location.reload();
+			});
+	}
+</script>

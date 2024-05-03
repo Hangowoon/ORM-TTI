@@ -1,5 +1,7 @@
 var express = require("express");
 var router = express.Router();
+var db = require("../models/index.js");
+const {isAuthenticated} = require("./middleware/authMiddleware.js");
 
 /* gallery page.
 - 호출주소체계 : http://localhost:3000/gallery
@@ -8,21 +10,25 @@ var router = express.Router();
 // 갤러리 웹페이지
 router.get("/", async (req, res, next) => {
 	try {
-		var loginUserImage = await db.generated_data.findAll({
-			where: {reg_user_id: req.session.isLognUser.user_id},
+		var closuerUserImage = await db.Generated_data.findAll({
+			//1이면 공개 0이면 공개안함
+			where: {data_disclosure: 1},
 		});
-	} catch (err) {}
+		// 보내줄 이미지데이터 경로 변경 처리  ./public/generatedImages/sample-1714463990962.png  ==> /generatedImages/sample-1714463990962.png
+		closuerUserImage.forEach((item, index) => {
+			item.dataValues.data_save_path = item.dataValues.data_save_path.replace("./public", "");
+		});
+	} catch (err) {
+		console.error(err);
+		next(err);
+	}
 
-	res.render("tti/gallery.ejs", {title: "Gallery"});
+	res.render("tti/gallery.ejs", {title: "Gallery", closuerUserImage});
 });
 
 // 기존 갤러리 데이터 불러오기
 router.post("/", async (req, res, next) => {
 	res.redirect("");
 });
-
-// 기존 갤러리  다운로드 기능
-
-// 기존 갤러리 좋아요 기능
 
 module.exports = router;
