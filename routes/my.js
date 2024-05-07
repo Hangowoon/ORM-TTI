@@ -28,15 +28,32 @@ const upload = multer({storage: storage});
 - 호출주소체계 : http://localhost:3000/my
 */
 router.get("/", isAuthenticated, async (req, res, next) => {
+	//페이지 네이션을위한 변수 설정
+	const page = parseInt(req.query.page) || 1; //프론트에서 전달해주는 현재 페이지 값
+	const limit = 3; //한 페이지에 표시할 데이터 수
+	// 현재 페에지 에서 직전페이지까지의 갯수를 세서 스킵하는 계산식 ex) 1page 3개데이터 표현일시 2page값이 넘어오면 (2-1) * 3 = 3개를 스킵하고 4번째부터 조회를 해서 가져오는 offset 변수 설정
+	const offset = (page - 1) * limit;
+
 	//나의 페이지 정보 출력을 위한 로그인 유저 user_id로 조건 조회
 	try {
 		var loginUser = await db.User_data.findOne({
 			where: {user_id: req.session.isLognUser.user_id},
 			attribute: ["user_id", "user_email", "user_name", "user_profile_img_path"],
 		});
+
+		//페이지 네이션이 적용된 조회 등록(생성)일 순으로 내림차순 정렬을 통한 가장 최신데이터 부터 조회
 		var loginUserImage = await db.Generated_data.findAll({
 			where: {reg_user_id: req.session.isLognUser.user_id},
+			limit: limit,
+			offset: offset,
+			order: [["reg_date", "DESC"]],
 		});
+
+		// 토탈 페이지수 구하기
+		var totalImages = await db.Generated_data.count();
+		// Math.ceil 함수로 올림  4.4 => 5로 변환후 totalImages 정의
+		totalImages = Math.ceil(totalImages / limit);
+
 		// 보내줄 이미지데이터 경로 변경 처리  ./public/generatedImages/sample-1714463990962.png  ==> /generatedImages/sample-1714463990962.png
 		loginUserImage.forEach((item, index) => {
 			item.dataValues.data_save_path = item.dataValues.data_save_path.replace("./public", "");
@@ -46,7 +63,7 @@ router.get("/", isAuthenticated, async (req, res, next) => {
 		next(err);
 	}
 	//db에서 조회해온 정보로 loginUser정보 view에 전달
-	res.render("tti/my.ejs", {title: "My Page", loginUser, loginUserImage});
+	res.render("tti/my.ejs", {title: "My Page", loginUser, loginUserImage, currentPage: page, totalImages});
 });
 
 //http://localhost:3000/my/update-profile

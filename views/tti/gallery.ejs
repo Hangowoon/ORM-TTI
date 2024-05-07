@@ -90,6 +90,17 @@
 	<!-- <div class="text-white text-center mt-4 mb-4">1 2 3</div>-->
 </header>
 
+<!-- Pagination -->
+<nav aria-label="Image Pagination">
+	<ul class="pagination justify-content-center mt-4">
+		<% for (let i = 1; i <= totalImages; i++) { %>
+		<li class="page-item <%= currentPage === i ? 'active' : '' %>">
+			<a class="page-link" href="/gallery?page=<%= i %>"><%= i %></a>
+		</li>
+		<% } %>
+	</ul>
+</nav>
+
 <!-- 이미지 모달창 -->
 <!-- Portfolio Modal 1-->
 

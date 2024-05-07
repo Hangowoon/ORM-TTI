@@ -188,6 +188,18 @@
 	</div>
 </div>
 <% }); %>
+
+<!-- Pagination -->
+<nav aria-label="Image Pagination">
+	<ul class="pagination justify-content-center mt-4">
+		<% for (let i = 1; i <= totalImages; i++) { %>
+		<li class="page-item <%= currentPage === i ? 'active' : '' %>">
+			<a class="page-link" href="/my?page=<%= i %>"><%= i %></a>
+		</li>
+		<% } %>
+	</ul>
+</nav>
+
 <!-- Portfolio Modal 2-->
 <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" aria-labelledby="portfolioModal2" aria-hidden="true">
 	<div class="modal-dialog modal-xl">
