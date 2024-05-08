@@ -20,7 +20,10 @@ const {OpenAI} = require("openai");
 router.get("/", isAuthenticated, async (req, res, next) => {
 	let imageURL = "/generatedImages/sample-1714447542939.png";
 	let imageBinaryData = "";
-	res.render("tti/create.ejs", {title: "Create", imageURL, imageBinaryData});
+	const user = await db.User_data.findOne({where: {user_id: req.session.isLognUser.user_id}});
+	const loginUserGenerateCount = user.generate_count;
+
+	res.render("tti/create.ejs", {title: "Create", imageURL, imageBinaryData, generateCount: loginUserGenerateCount});
 });
 
 /* create page. post
@@ -29,15 +32,28 @@ router.get("/", isAuthenticated, async (req, res, next) => {
 router.post("/", isAuthenticated, async (req, res, next) => {
 	let imageURL = "";
 	let imageBinaryData = "";
-	const openai = new OpenAI({
-		apiKey: process.env.OPENAI_API_KEY,
-	});
+
 	try {
+		const user = await db.User_data.findOne({where: {user_id: req.session.isLognUser.user_id}});
+
+		let apiKey = process.env.OPENAI_API_KEY;
+
+		//만약에 조회해온 유저정보의 generate_count 값이 0이하이면 제한 메세지 반환
+		if (user.generate_count <= 0) {
+			//create.ejs 화면에서 apikey를 전달해주지 않았다면
+			if (!req.body.apiKey) {
+				return res.render("tti/create.ejs", {title: "Create", imageURL, imageBinaryData, generateCount: user.generate_count});
+			}
+			//user.generate_count가 0이하이고 화면에서 apiKey가 잘전달되면 apiKey 변수에 화면에서 전달한 req.body.apiKey를 넣어준다.
+			apiKey = req.body.apiKey;
+		}
+
 		var model = req.body.modelVersion;
 		var prompt = req.body.floatingPrompt;
 		var size = req.body.imageSize;
 		var style = "vivid"; // vivid
 		var response_format = "url"; //b64_json or url
+		var openaiApi = apiKey; // 최종 apikey 할당!
 
 		//참고URL: https://platform.openai.com/docs/api-reference/images/createEdit
 		// {
@@ -51,6 +67,10 @@ router.post("/", isAuthenticated, async (req, res, next) => {
 		//   user:
 		// }
 
+		const openai = new OpenAI({
+			apiKey: openaiApi,
+		});
+
 		const response = await openai.images.generate({
 			model: model,
 			prompt: prompt,
@@ -61,7 +81,7 @@ router.post("/", isAuthenticated, async (req, res, next) => {
 		});
 
 		const imgFileName = `sample-${Date.now()}.png`;
-		const imgFilePath = `./public/generatedImages/${imgFileName}`;
+		let imgFilePath = `./public/generatedImages/${imgFileName}`;
 
 		if (response_format == "url") {
 			imageURL = response.data[0].url;
@@ -90,6 +110,9 @@ router.post("/", isAuthenticated, async (req, res, next) => {
 			imageURL = `/generatedImages/${imgFileName}`;
 		}
 
+		//데이터 베이스에 저장되는 경로 변경 단, 여기서 바꾸면 모든 경로 코드 체크를 진행하야합니다.
+		// imgFilePath = imgFilePath.replace("./public","");
+
 		console.log("이미지 생성 URL:", response);
 
 		//한국시간으로 변경하기
@@ -111,12 +134,19 @@ router.post("/", isAuthenticated, async (req, res, next) => {
 			data_disclosure: 1,
 			reg_date: getKoreanTimeIsoString(),
 		});
+
+		// 성성에 생공한 경우 if문으로 user.generate_count >0 초과인 경우만 생성 횟수 차감
+
+		if (user.generate_count > 0) {
+			//생성 횟수 차감
+			await user.update({generate_count: user.generate_count - 1});
+		}
+
+		res.render("tti/create.ejs", {title: "Create", imageURL, imageBinaryData, generateCount: user.generate_count});
 	} catch (err) {
 		console.log("OpenAI DALL.E3 API 호출 에러발생:", err);
 		next(err);
 	}
-
-	res.render("tti/create.ejs", {title: "Create", imageURL, imageBinaryData});
 });
 
 module.exports = router;

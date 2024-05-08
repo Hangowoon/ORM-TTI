@@ -1,2 +1,4 @@
 # Prettier ignore file
+# ORM-TTI/views/tti
+# **/*/*/*.ejs
 *.ejs

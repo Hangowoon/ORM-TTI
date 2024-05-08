@@ -24,7 +24,10 @@ router.get("/", async (req, res, next) => {
 			order: [["reg_date", "DESC"]],
 		});
 
-		var totalImages = await db.Generated_data.count();
+		var totalImages = await db.Generated_data.count({
+			//1이면 공개 0이면 공개안함
+			where: {data_disclosure: 1},
+		});
 		totalImages = Math.ceil(totalImages / limit);
 
 		// 보내줄 이미지데이터 경로 변경 처리  ./public/generatedImages/sample-1714463990962.png  ==> /generatedImages/sample-1714463990962.png

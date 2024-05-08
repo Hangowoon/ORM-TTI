@@ -91,14 +91,62 @@
 </header>
 
 <!-- Pagination -->
+<!-- Pagination -->
 <nav aria-label="Image Pagination">
-	<ul class="pagination justify-content-center mt-4">
-		<% for (let i = 1; i <= totalImages; i++) { %>
-		<li class="page-item <%= currentPage === i ? 'active' : '' %>">
-			<a class="page-link" href="/gallery?page=<%= i %>"><%= i %></a>
-		</li>
-		<% } %>
-	</ul>
+
+    <ul class="pagination justify-content-center mt-2">
+        <!-- prettier-ignore -->
+        <% let pageLimit = 5; %> 
+        <% let totalPageNumbers = (pageLimit > totalImages) ? totalImages : pageLimit; %>
+        <% let maxLeft = (currentPage - Math.floor(totalPageNumbers / 2)); %>
+        <% let maxRight = (currentPage + Math.floor(totalPageNumbers / 2)); %>
+
+        <% if(maxLeft < 1) { %>
+            <% maxLeft = 1; %>
+            <% maxRight = totalPageNumbers; %>
+        <% } %>
+
+        <% if(maxRight > totalImages) { %>
+            <% maxLeft = totalImages - (totalPageNumbers - 1); %>
+            <% maxRight = totalImages; %>
+
+            <% if(maxLeft < 1) maxLeft = 1; %>
+        <% } %>
+
+        <!-- 처음 페이지로 가는 링크 -->
+        <% if(currentPage != 1) { %>
+            <li class="page-item">
+                <a class="page-link" href="/gallery?page=1">처음</a>
+            </li>
+        <% } %>
+
+        <!-- 이전 페이지로 가는 링크 -->
+        <% if(currentPage > 1) { %>
+            <li class="page-item">
+                <a class="page-link" href="/gallery?page=<%= currentPage - 1 %>">&laquo;</a>
+            </li>
+        <% } %>
+
+        <% for(let i = maxLeft; i <= maxRight; i++) { %>
+            <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                <a class="page-link" href="/gallery?page=<%= i %>"><%= i %></a>
+            </li>
+        <% } %>
+
+        <!-- 다음 페이지로 가는 링크 -->
+        <% if(currentPage < totalImages) { %>
+            <li class="page-item">
+                <a class="page-link" href="/gallery?page=<%= currentPage + 1 %>">&raquo;</a>
+            </li>
+        <% } %>
+
+        <!-- 마지막 페이지로 가는 링크 -->
+        <% if(currentPage != totalImages) { %>
+            <li class="page-item">
+                <a class="page-link" href="/gallery?page=<%= totalImages %>">마지막</a>
+            </li>
+        <% } %>
+    </ul>
 </nav>
 
 <!-- 이미지 모달창 -->
