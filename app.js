@@ -10,6 +10,9 @@ var session = require('express-session');
 //dotenv 어플리케이션 환경설정관리 팩키지 참조 및 구성하기
 require('dotenv').config();
 
+//CORS 접근 이슈 해결을 위한 cors패키지 참조
+const cors = require('cors');
+
 //레이아웃 패키지 참조
 var expressLayouts = require('express-ejs-layouts');
 
@@ -39,7 +42,7 @@ app.use(
     cookie: {
       httpOnly: true,
       secure: false,
-      maxAge: 1000 * 60 * 5, //5분동안 서버세션을 유지하겠다.(1000은 1초)
+      maxAge: 1000 * 60 * 60, //5분동안 서버세션을 유지하겠다.(1000은 1초)
     },
   })
 );
@@ -61,6 +64,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//node_modules에있는 패키지 직접 참조를 위한 설정 부트스트랩 직접 참조가능
+app.use('/scripts', express.static(__dirname + '/node_modules'));
+
 // 라우터 경로
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -69,6 +75,11 @@ app.use('/login', loginRouter);
 app.use('/my', myRouter);
 app.use('/create', createRouter);
 app.use('/gallery', galleryRouter);
+
+// 캐치올 라우터: 정의되지 않은 모든 경로를 홈으로 리다이렉션
+app.get('*', (req, res) => {
+  res.redirect('/');
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -27,6 +27,7 @@ router.post('/', async (req, res, next) => {
   var signupResult = '';
 
   // 1. 데이터 추출
+  // req.body.name 값
   var userEmail = req.body.userEmail;
   var userPassword = req.body.userPassword;
   var userName = req.body.userName;
@@ -52,7 +53,7 @@ router.post('/', async (req, res, next) => {
       user_email: userEmail,
       user_password: encryptedPassword,
       user_name: userName,
-      user_profile_img_path: '/assets/img/user/profile.jpg',
+      user_profile_img_path: '/assets/img/user/profile_base.png',
       reg_date: Date.now(),
       edit_date: Date.now(),
       delete_date: Date.now(),

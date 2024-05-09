@@ -120,13 +120,7 @@
 
   if (loginResult.length > 0) {
     alert(loginResult);
-
-    if (loginResult == '이메일이 존재하지 않습니다.') {
-      $('#floatingEmail').focus();
-    } else {
-      $('#floatingPassword').focus();
-      return false;
-    }
+    $('#floatingEmail').focus();
   }
 </script>
 

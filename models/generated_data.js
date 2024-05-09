@@ -4,7 +4,7 @@ module.exports = function (sequelize, DataTypes) {
     {
       data_id: {
         type: DataTypes.INTEGER,
-        autoIncrememt: true,
+        autoIncrement: true,
         primaryKey: true,
         allowNull: false,
         comment: '생성데이터 고유번호',

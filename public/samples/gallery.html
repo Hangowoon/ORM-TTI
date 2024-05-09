@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Gallery</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/logo.png" />
+    <!-- Bootstrap Icons-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- Google fonts-->
+    <link
+      href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- SimpleLightbox plugin CSS-->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css"
+      rel="stylesheet"
+    />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+    <link href="css/styles_model.css" rel="stylesheet" />
+  </head>
+  <body id="page-top">
+    <!-- Top -->
+    <!-- Navigation-->
+    <nav
+      class="navbar navbar-expand-lg navbar-light fixed-top py-3"
+      id="mainNav"
+    >
+      <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="main.html">TTI</a>
+
+        <button
+          class="navbar-toggler navbar-toggler-right"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarResponsive"
+          aria-controls="navbarResponsive"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ms-auto my-2 my-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="create.html">Create</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="gallery.html">Gallery</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="mypage.html">My Page</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="home.html">Log Out</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- center -->
+    <!-- Masthead-->
+    <header class="masthead">
+      <div class="container px-4 px-lg-5 h-25">
+        <div
+          class="row gx-4 gx-lg-5 align-items-center justify-content-center text-center"
+        >
+          <!-- 설명란 -->
+          <div class="col-lg-8 align-self-end mt-3">
+            <h2 class="text-white font-weight-bold">작품을 감상하세요.</h2>
+            <p class="text-white-75 mb-5">
+              다른 사람들의 작품을 감상하고, 나만의 작품을 다른 사람들과 함께
+              공유하세요.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div id="portfolio">
+        <div class="container-fluid p-0 h-30">
+          <div class="row g-0">
+            <div class="row g-0 col-lg-12">
+              <!-- 작품1 -->
+              <div class="col-lg-3 col-sm-6">
+                <div
+                  class="portfolio-item mx-auto"
+                  data-bs-toggle="modal"
+                  data-bs-target="#portfolioModal1"
+                >
+                  <img
+                    class="img-fluid"
+                    src="assets/img/portfolio/thumbnails/img_01.JPG"
+                    alt="img-001"
+                  />
+                </div>
+              </div>
+
+              <!-- 작품2 -->
+              <div class="col-lg-3 col-sm-6">
+                <a
+                  class="portfolio-box"
+                  href="assets/img/portfolio/fullsize/img_02.JPG"
+                  title="장엄한 왕관을 쓰고 왕좌에 앉아 감자 신하들과 감자 성들로 가득 찬 광대한 감자 왕국을 감독하는 자근 감자왕들."
+                  download=""
+                >
+                  <img
+                    class="img-fluid"
+                    src="assets/img/portfolio/thumbnails/img_02.JPG"
+                    alt="img-002"
+                  />
+                  <div class="portfolio-box-caption">
+                    <div class="project-category text-white-50">Category</div>
+                    <div class="project-name">
+                      장엄한 왕관을 쓰고 왕좌에 앉아 감자 신하들과 감자 성들
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <!-- 작품3 -->
+              <div class="col-lg-3 col-sm-6">
+                <a
+                  class="portfolio-box"
+                  href="assets/img/portfolio/fullsize/img_03.JPG"
+                  title="젖은 모래 속에 자리잡은 소라게의 플로즈업 사진.근처에 바다 거품이 있고 껍데기의 디테일과 모래의 질감이 강조되어 있다. "
+                >
+                  <img
+                    class="img-fluid"
+                    src="assets/img/portfolio/thumbnails/img_03.JPG"
+                    alt="..."
+                  />
+                  <div class="portfolio-box-caption">
+                    <div class="project-category text-white-50">Category</div>
+                    <div class="project-name">
+                      젖은 모래 속에 자리잡은 소라게의 플로즈업 사진...
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <!-- 작품4 -->
+              <div class="col-lg-3 col-sm-6">
+                <a
+                  class="portfolio-box"
+                  href="assets/img/portfolio/fullsize/img_04.JPG"
+                  title="폭풍우가 몰아치는 바다 한가운데 받침대 위에 서 있는 반투명 유리로 만들어진 인간의 마음을 그린 그림이다."
+                >
+                  <img
+                    class="img-fluid"
+                    src="assets/img/portfolio/thumbnails/img_04.JPG"
+                    alt="..."
+                  />
+                  <div class="portfolio-box-caption">
+                    <div class="project-category text-white-50">Category</div>
+                    <div class="project-name">
+                      폭풍우가 몰아치는 바다 한가운데 받침대 위에 서 있는...
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <!-- 작품5 -->
+              <div class="col-lg-3 col-sm-6">
+                <a
+                  class="portfolio-box"
+                  href="assets/img/portfolio/fullsize/5.jpg"
+                  title="Project Name"
+                >
+                  <img
+                    class="img-fluid"
+                    src="assets/img/portfolio/thumbnails/5.jpg"
+                    alt="..."
+                  />
+                  <div class="portfolio-box-caption">
+                    <div class="project-category text-white-50">Category</div>
+                    <div class="project-name">Project Name</div>
+                  </div>
+                </a>
+              </div>
+
+              <!-- 작품6 -->
+              <div class="col-lg-3 col-sm-6">
+                <a
+                  class="portfolio-box"
+                  href="assets/img/portfolio/fullsize/6.jpg"
+                  title="Project Name"
+                >
+                  <img
+                    class="img-fluid"
+                    src="assets/img/portfolio/thumbnails/6.jpg"
+                    alt="..."
+                  />
+                  <div class="portfolio-box-caption p-3">
+                    <div class="project-category text-white-50">Category</div>
+                    <div class="project-name">Project Name</div>
+                  </div>
+                </a>
+              </div>
+
+              <!-- 작품7 -->
+              <div class="col-lg-3 col-sm-6">
+                <a
+                  class="portfolio-box"
+                  href="assets/img/portfolio/fullsize/1.jpg"
+                  title="Project Name"
+                >
+                  <img
+                    class="img-fluid"
+                    src="assets/img/portfolio/thumbnails/1.jpg"
+                    alt="..."
+                  />
+                  <div class="portfolio-box-caption">
+                    <div class="project-category text-white-50">Category</div>
+                    <div class="project-name">Project Name</div>
+                  </div>
+                </a>
+              </div>
+
+              <!-- 작품8 -->
+              <div class="col-lg-3 col-sm-6">
+                <a
+                  class="portfolio-box"
+                  href="assets/img/portfolio/fullsize/2.jpg"
+                  title="Project Name"
+                >
+                  <img
+                    class="img-fluid"
+                    src="assets/img/portfolio/thumbnails/2.jpg"
+                    alt="..."
+                  />
+                  <div class="portfolio-box-caption">
+                    <div class="project-category text-white-50">Category</div>
+                    <div class="project-name">Project Name</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 하단 이미지 목록 페이지  -->
+      <div class="text-white text-center mt-4 mb-4">1 2 3</div>
+    </header>
+
+    <!-- Footer-->
+    <footer class="bg-black py-5">
+      <div class="container px-4 px-lg-5">
+        <div class="small text-center text-muted">
+          Copyright &copy; 2024 - GOGOGO
+        </div>
+      </div>
+    </footer>
+
+    <!-- 이미지 모달창 -->
+    <!-- Portfolio Modal 1-->
+    <div
+      class="portfolio-modal modal fade"
+      id="portfolioModal1"
+      tabindex="-1"
+      aria-labelledby="portfolioModal1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header border-0">
+            <button
+              class="btn-close"
+              type="button"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body text-center pb-5">
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-lg-11">
+                  <!-- Portfolio Modal - Title-->
+                  <!-- Icon Divider-->
+                  <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon">
+                      <i class="fas fa-star"></i>
+                    </div>
+                    <div class="divider-custom-line"></div>
+                  </div>
+                  <!-- Portfolio Modal - Image-->
+                  <img
+                    class="img-fluid rounded mb-3"
+                    src="assets/img/portfolio/fullsize/img_01.JPG"
+                    alt="..."
+                  />
+                  <!-- Portfolio Modal - Text-->
+                  <div class="form-floating mb-1">
+                    <p class="text-black">
+                      은색 줄무늬가 있는 검은 머리카락을 지닌 아시아계 중년
+                      여성이 부서지고 쪼개진채 깨진 도자기 바다속에 복잡하게
+                      박혀 있은 것 처럼 보인다.
+                    </p>
+                    <p class="text-black">
+                      GOGOGO ㅣ 2024-04-16 ㅣ DALL-E-3 ㅣ 512X512
+                    </p>
+                  </div>
+
+                  <button class="btn btn-primary" data-bs-dismiss="modal">
+                    <i class="fas fa-xmark fa-fw"></i>
+                    다운로드
+                  </button>
+                  <button class="btn btn-primary" data-bs-dismiss="modal">
+                    <i class="fas fa-xmark fa-fw"></i>
+                    좋아요 15
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal-->
+    <div
+      class="modal fade"
+      id="feedbackModal"
+      tabindex="-1"
+      aria-labelledby="feedbackModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-gradient-primary-to-secondary p-4">
+            <h5 class="modal-title font-alt text-white" id="feedbackModalLabel">
+              Send feedback
+            </h5>
+            <button
+              class="btn-close btn-close-white"
+              type="button"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body border-0 p-4">
+            <!-- * * * * * * * * * * * * * * *-->
+            <!-- * * SB Forms Contact Form * *-->
+            <!-- * * * * * * * * * * * * * * *-->
+            <!-- This form is pre-integrated with SB Forms.-->
+            <!-- To make this form functional, sign up at-->
+            <!-- https://startbootstrap.com/solution/contact-forms-->
+            <!-- to get an API token!-->
+            <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+              <!-- Name input-->
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="name"
+                  type="text"
+                  placeholder="Enter your name..."
+                  data-sb-validations="required"
+                />
+                <label for="name">Full name</label>
+                <div class="invalid-feedback" data-sb-feedback="name:required">
+                  A name is required.
+                </div>
+              </div>
+              <!-- Email address input-->
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="email"
+                  type="email"
+                  placeholder="name@example.com"
+                  data-sb-validations="required,email"
+                />
+                <label for="email">Email address</label>
+                <div class="invalid-feedback" data-sb-feedback="email:required">
+                  An email is required.
+                </div>
+                <div class="invalid-feedback" data-sb-feedback="email:email">
+                  Email is not valid.
+                </div>
+              </div>
+              <!-- Phone number input-->
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="phone"
+                  type="tel"
+                  placeholder="(123) 456-7890"
+                  data-sb-validations="required"
+                />
+                <label for="phone">Phone number</label>
+                <div class="invalid-feedback" data-sb-feedback="phone:required">
+                  A phone number is required.
+                </div>
+              </div>
+              <!-- Message input-->
+              <div class="form-floating mb-3">
+                <textarea
+                  class="form-control"
+                  id="message"
+                  type="text"
+                  placeholder="Enter your message here..."
+                  style="height: 10rem"
+                  data-sb-validations="required"
+                ></textarea>
+                <label for="message">Message</label>
+                <div
+                  class="invalid-feedback"
+                  data-sb-feedback="message:required"
+                >
+                  A message is required.
+                </div>
+              </div>
+              <!-- Submit success message-->
+              <!---->
+              <!-- This is what your users will see when the form-->
+              <!-- has successfully submitted-->
+              <div class="d-none" id="submitSuccessMessage">
+                <div class="text-center mb-3">
+                  <div class="fw-bolder">Form submission successful!</div>
+                  To activate this form, sign up at
+                  <br />
+                  <a href="https://startbootstrap.com/solution/contact-forms"
+                    >https://startbootstrap.com/solution/contact-forms</a
+                  >
+                </div>
+              </div>
+              <!-- Submit error message-->
+              <!---->
+              <!-- This is what your users will see when there is-->
+              <!-- an error submitting the form-->
+              <div class="d-none" id="submitErrorMessage">
+                <div class="text-center text-danger mb-3">
+                  Error sending message!
+                </div>
+              </div>
+              <!-- Submit Button-->
+              <div class="d-grid">
+                <button
+                  class="btn btn-primary rounded-pill btn-lg disabled"
+                  id="submitButton"
+                  type="submit"
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- SimpleLightbox plugin JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+    <script src="js/scripts_free.js"></script>
+    <!-- * * * * * * * * * * * new* * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <!-- * *                               SB Forms JS                               * *-->
+    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+  </body>
+</html>
