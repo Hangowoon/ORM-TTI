@@ -1,4 +1,7 @@
 <!-- Top -->
+<style>
+
+</style>
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
 	<div class="container px-4 px-lg-5">
@@ -36,6 +39,9 @@
 </nav>
 
 <!-- center -->
+
+
+
 <!-- Masthead-->
 <header class="masthead">
 	<!-- 설명란 -->
@@ -47,51 +53,7 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- 갤러리 목록 -->
-	<div id="portfolio">
-		<div class="container-fluid p-0 h-30">
-			<div class="row g-0">
-				<div class="row g-0 col-lg-12">
-					<% closuerUserImage.forEach(function(image,index){ %>
-					<!-- 작품1 -->
-					<div class="col-lg-3 col-sm-6">
-						<div class="portfolio-box" data-bs-toggle="modal" data-bs-target="#portfolioModal<%= index %>">
-							<img class="img-fluid" src="<%= image.data_save_path %>" alt="<%= image.data_prompt %>" />
-							<div class="portfolio-box-caption">
-								<div class="project-category text-white-50"><%= image.data_ai_model_name %></div>
-								<div class="project-name"><%= image.data_prompt %></div>
-							</div>
-						</div>
-					</div>
-
-					<% }); %>
-
-					<!-- 작품2 -->
-					<!-- <div class="col-lg-3 col-sm-6">
-						<a
-							class="portfolio-box"
-							href="assets/img/portfolio/fullsize/img_02.JPG"
-							title="장엄한 왕관을 쓰고 왕좌에 앉아 감자 신하들과 감자 성들로 가득 찬 광대한 감자 왕국을 감독하는 자근 감자왕들."
-						>
-							<img class="img-fluid" src="assets/img/portfolio/thumbnails/img_02.JPG" alt="img-002" />
-							<div class="portfolio-box-caption">
-								<div class="project-category text-white-50">Category</div>
-								<div class="project-name">장엄한 왕관을 쓰고 왕좌에 앉아 감자 신하들과 감자 성들</div>
-							</div>
-						</a>
-					</div> -->
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- 하단 이미지 목록 페이지  -->
-	<!-- <div class="text-white text-center mt-4 mb-4">1 2 3</div>-->
-</header>
-
-<!-- Pagination -->
-<!-- Pagination -->
+    <!-- Pagination -->
 <nav aria-label="Image Pagination">
 
     <ul class="pagination justify-content-center mt-2">
@@ -148,6 +110,51 @@
         <% } %>
     </ul>
 </nav>
+
+	<!-- 갤러리 목록 -->
+	<div id="portfolio" >
+		<div class="container-fluid p-0 h-30 ">
+			<div class="row g-0">
+				<div class="row g-0 col-lg-12">
+					<% closuerUserImage.forEach(function(image,index){ %>
+					<!-- 작품1 -->
+					<div class="col-lg-3 col-sm-6">
+						<div class="portfolio-box" data-bs-toggle="modal" data-bs-target="#portfolioModal<%= index %>">
+							<img class="img-fluid" src="<%= image.data_save_path %>" alt="<%= image.data_prompt %>" />
+							<div class="portfolio-box-caption">
+								<div class="project-category text-white-50"><%= image.data_ai_model_name %></div>
+								<div class="project-name"><%= image.data_prompt %></div>
+							</div>
+						</div>
+					</div>
+
+					<% }); %>
+
+					<!-- 작품2 -->
+					<!-- <div class="col-lg-3 col-sm-6">
+						<a
+							class="portfolio-box"
+							href="assets/img/portfolio/fullsize/img_02.JPG"
+							title="장엄한 왕관을 쓰고 왕좌에 앉아 감자 신하들과 감자 성들로 가득 찬 광대한 감자 왕국을 감독하는 자근 감자왕들."
+						>
+							<img class="img-fluid" src="assets/img/portfolio/thumbnails/img_02.JPG" alt="img-002" />
+							<div class="portfolio-box-caption">
+								<div class="project-category text-white-50">Category</div>
+								<div class="project-name">장엄한 왕관을 쓰고 왕좌에 앉아 감자 신하들과 감자 성들</div>
+							</div>
+						</a>
+					</div> -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 하단 이미지 목록 페이지  -->
+	<!-- <div class="text-white text-center mt-4 mb-4">1 2 3</div>-->
+</header>
+
+<!-- Pagination -->
+
 
 <!-- 이미지 모달창 -->
 <!-- Portfolio Modal 1-->

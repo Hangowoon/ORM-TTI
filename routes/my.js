@@ -30,7 +30,7 @@ const upload = multer({storage: storage});
 router.get("/", isAuthenticated, async (req, res, next) => {
 	//페이지 네이션을위한 변수 설정
 	const page = parseInt(req.query.page) || 1; //프론트에서 전달해주는 현재 페이지 값
-	const limit = 6; //한 페이지에 표시할 데이터 수
+	const limit = 3; //한 페이지에 표시할 데이터 수
 	// 현재 페에지 에서 직전페이지까지의 갯수를 세서 스킵하는 계산식 ex) 1page 3개데이터 표현일시 2page값이 넘어오면 (2-1) * 3 = 3개를 스킵하고 4번째부터 조회를 해서 가져오는 offset 변수 설정
 	const offset = (page - 1) * limit;
 
